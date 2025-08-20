@@ -1,0 +1,42 @@
+# Log files
+*.log
+*.log.*
+
+# JSON config files (be specific to avoid ignoring important JSONs)
+config.json
+*_config.json
+*_creds.json
+
+# Or to ignore ALL JSON files (use with caution):
+# *.json
+
+# Cache and temporary files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# IDE files
+.vs/
+.vscode/
+*.swp
+*.swo
+
+# OS generated files
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# dirs
+app/
+
+# images
+*.png
+*.jpg
+*.jpeg
+
+# docs
+*.pptx
+*.pdf
+*.docx
