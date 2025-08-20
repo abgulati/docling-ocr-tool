@@ -5,6 +5,7 @@ import platform
 import argparse
 import logging
 import pathlib
+import marko
 import fitz # PyMuPDF
 import json
 import sys
@@ -12,6 +13,7 @@ import os
 import io
 
 from logging.handlers import RotatingFileHandler
+from marko.ast_renderer import XMLRenderer
 
 try:
     # Standard Pipeline
@@ -263,6 +265,43 @@ except Exception as e:
 
 
 #########################----------------------------------------------###############################
+
+
+def get_xml_from_text(txt_filepath:pathlib.Path) -> pathlib.Path:
+    '''
+    Convert a text file to an XML file using Marko
+
+    Args:
+        - txt_filepath: pathlib.Path object of the text file to be converted
+
+    Returns:
+        - pathlib.Path object of the output XML file
+
+    Raises:
+        - Exception: If the text file cannot be opened, the output XML file cannot be created, or the conversion fails
+    '''
+
+    try:
+        print(f"\n\nConverting text file to XML: {txt_filepath}\n\n")
+
+        # 1. Read the file content using pathlib's built-in method
+        text_content = txt_filepath.read_text(encoding='utf-8')
+        
+        # 2. Instantiate the Markdown class, passing the XMLRenderer as the renderer.
+        markdown_converter = marko.Markdown(renderer=XMLRenderer)  
+
+        # 3. Call the converter instance with the text - This single call performs both parsing and XML rendering.
+        xml_content = markdown_converter(text_content)
+
+        # 4. Write the XML content to a new file using pathlib's built-in method
+        xml_filepath = txt_filepath.with_suffix('.xml')
+        xml_filepath.write_text(xml_content, encoding='utf-8')
+        
+        print(f"XML file created successfully: {xml_filepath}")
+        return xml_filepath
+
+    except Exception as e:
+        handle_local_error("Could not convert text to XML, encountered error: ", e)
 
 
 def get_docling_ocr_model(model_name_string:str):
@@ -668,10 +707,17 @@ def ocr_file_list(staging_folder:pathlib.Path, file_list: list) -> bool:
             continue
         
         try:    # Get text from PDF
-            _ = get_text_extract_from_pdf(pdf_filepath)
+            txt_filepath = get_text_extract_from_pdf(pdf_filepath)
         except Exception as e:
             handle_error_no_return(f"Could not extract text from the PDF document, encountered error: ", e)
             continue
+
+        try:    # Generate XML File
+            _ = get_xml_from_text(txt_filepath)
+        except Exception as e:
+            handle_error_no_return(f"Could not generate XML file from text, encountered error: ", e)
+            continue
+
     
     print("\n\nOCR completed\n\n")
     return True
