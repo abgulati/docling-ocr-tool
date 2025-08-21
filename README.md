@@ -164,3 +164,11 @@ These arguments control the behavior of the Docling OCR engine:
 | `\--dl-cuda-use-flash-attention-2` | (For NVIDIA GPUs) A flag to enable Flash Attention 2 for better performance.                        | `FALSE`                    |
 | `\--dl-force-full-page-ocr`        | Forces OCR to run on the entire page, ignoring existing text layers.                                | `FALSE`                    |
 | `\--dl-num-threads`                | The number of CPU threads to use for processing.                                                    | `4`                        |
+
+**NOTE:** 
+
+- Find a full up-to-date list of CLI options in the official Docling CLI Reference [here](https://docling-project.github.io/docling/reference/cli/)
+
+- A full list of supported VLMs can be found in the `vlm_model_specs.py` [file](https://github.com/docling-project/docling/blob/e76298c40d9a860fe5c8e2d5922397eed4a71763/docling/datamodel/vlm_model_specs.py)
+
+- Feel free to contribute or open an issue to request support for additional flags!
