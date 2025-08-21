@@ -81,21 +81,21 @@ This utility was built and tested with Python v3.11.5.
 
 1. **Create a Python Virtual Environment:** It's highly recommended to create a virtual environment to manage dependencies and avoid conflicts with other projects.
 
-```
-# For Windows
-python -m venv venv
-.\venv\Scripts\activate
+    ```
+    # For Windows
+    python -m venv docling-venv
+    .\docling-venv\Scripts\activate
 
-# For macOS/Linux
-python3 -m venv venv
-source venv/bin/activate
-```
+    # For macOS/Linux
+    python3 -m venv docling-venv
+    source docling-venv/bin/activate
+    ```
 
 2. **Install Requirements:** Install all the necessary Python packages from the `requirements.txt` file.
 
-```
-pip install -r requirements.txt
-```
+    ```
+    pip install -r requirements.txt
+    ```
 
 ## First Run
 
